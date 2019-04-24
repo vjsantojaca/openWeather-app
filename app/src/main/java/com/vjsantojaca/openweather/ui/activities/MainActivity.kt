@@ -2,7 +2,7 @@ package com.vjsantojaca.openweather.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.vjsantojaca.openweather.openweatherapp.R
+import com.vjsantojaca.openweather.R
 
 class MainActivity : AppCompatActivity() {
 
