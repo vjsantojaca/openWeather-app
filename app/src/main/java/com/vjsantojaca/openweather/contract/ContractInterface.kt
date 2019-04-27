@@ -15,7 +15,8 @@ interface ContractInterface {
     }
 
     interface Model {
-        fun getWeather()
+        fun obtainWeatherAPI()
+        fun obtainWeatherCSV()
     }
 
 }

@@ -12,15 +12,13 @@ class WeatherPresenter (_view: ContractInterface.View) : ContractInterface.Prese
 
     init {
         //view.initView()
-        model.getWeather()
-        //Log.d("VICTOR", response.toString());
     }
 
     override fun getWeather() {
+        model.obtainWeatherAPI()
     }
 
     override fun responseWeather(weather: Weather) {
-        Log.d("VICTOR", weather.toString())
     }
 
 }
