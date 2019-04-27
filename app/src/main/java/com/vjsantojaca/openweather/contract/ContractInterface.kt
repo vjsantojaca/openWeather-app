@@ -1,5 +1,7 @@
 package com.vjsantojaca.openweather.contract
 
+import com.vjsantojaca.openweather.model.pojo.Weather
+
 interface ContractInterface {
 
     interface View {
@@ -9,6 +11,7 @@ interface ContractInterface {
 
     interface Presenter {
         fun getWeather()
+        fun responseWeather(weather: Weather)
     }
 
     interface Model {

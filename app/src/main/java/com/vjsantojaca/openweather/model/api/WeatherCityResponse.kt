@@ -17,5 +17,5 @@ class ListWeatherResponse (
 )
 
 class MainWeatherResponse (
-    val temp : Int
+    val temp : Float
 )

@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), ContractInterface.View {
     }
 
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //NoItemsByNow
     }
 
     override fun updateViewData() {
