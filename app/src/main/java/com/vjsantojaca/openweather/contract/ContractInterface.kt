@@ -7,13 +7,13 @@ interface ContractInterface {
 
     interface View {
         fun initView()
-        fun updateViewData()
+        fun updateViewData(weather: Weather)
     }
 
     interface Presenter {
         fun attach(view : View)
         fun getWeather()
-        fun getInfoCSV()
+        fun getInfoCSV() : WeatherCSV?
         fun responseWeather(weather: Weather)
     }
 
