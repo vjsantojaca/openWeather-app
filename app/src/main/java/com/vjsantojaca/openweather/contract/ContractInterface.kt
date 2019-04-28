@@ -6,8 +6,8 @@ import com.vjsantojaca.openweather.model.pojo.WeatherCSV
 interface ContractInterface {
 
     interface View {
-        fun initView()
-        fun updateViewData(weather: Weather)
+        fun initViewAPI()
+        fun updateFragmentWeatherAPI(weather: Weather)
     }
 
     interface Presenter {

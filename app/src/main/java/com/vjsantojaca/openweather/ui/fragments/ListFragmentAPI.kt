@@ -8,7 +8,7 @@ import android.view.ViewGroup
 
 import com.vjsantojaca.openweather.R
 import com.vjsantojaca.openweather.contract.ContractInterface
-import kotlinx.android.synthetic.main.fragment_list.*
+import com.vjsantojaca.openweather.model.pojo.Weather
 
 import javax.inject.Inject
 
@@ -17,8 +17,11 @@ class ListFragmentAPI: Fragment() {
     lateinit var presenter: ContractInterface.Presenter
 
     private lateinit var rootView: View
+    private lateinit var weather : Weather
 
-    fun newInstance(): ListFragmentAPI {
+
+    fun newInstance(weather: Weather): ListFragmentAPI {
+        this.weather = weather
         return ListFragmentAPI()
     }
 
@@ -34,13 +37,5 @@ class ListFragmentAPI: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    fun showProgress(show: Boolean) {
-        if (show) {
-            progressBar.visibility = View.VISIBLE
-        } else {
-            progressBar.visibility = View.GONE
-        }
     }
 }

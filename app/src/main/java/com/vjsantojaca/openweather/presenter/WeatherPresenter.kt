@@ -12,8 +12,8 @@ class WeatherPresenter : ContractInterface.Presenter {
 
     override fun attach(view: ContractInterface.View) {
         this.view = view
-        view.initView()
-        model.obtainWeatherAPI()
+        //By default the view is VIEW API
+        view.initViewAPI()
     }
 
     override fun getWeather() {
@@ -21,7 +21,7 @@ class WeatherPresenter : ContractInterface.Presenter {
     }
 
     override fun responseWeather(weather: Weather) {
-        view.updateViewData(weather)
+        view.updateFragmentWeatherAPI(weather)
     }
 
 

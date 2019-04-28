@@ -3,6 +3,7 @@ package com.vjsantojaca.openweather.ui.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.view.View
 import android.widget.FrameLayout
 
 import com.vjsantojaca.openweather.Constants
@@ -13,6 +14,7 @@ import com.vjsantojaca.openweather.di.modules.ActivityModule
 import com.vjsantojaca.openweather.model.pojo.Weather
 import com.vjsantojaca.openweather.ui.fragments.ListFragmentAPI
 import com.vjsantojaca.openweather.ui.fragments.ListFragmentCSV
+import kotlinx.android.synthetic.main.activity_main.*
 
 import javax.inject.Inject
 
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity(), ContractInterface.View {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> showListFragmentAPI()
+                    0 -> initViewAPI()
                     1 -> showListFragmentCSV()
                 }
             }
@@ -56,10 +58,11 @@ class MainActivity : AppCompatActivity(), ContractInterface.View {
         activityComponent.inject(this)
     }
 
-    fun showListFragmentAPI() {
+    fun showListFragmentAPI(weather :  Weather) {
+        showProgress(false)
         supportFragmentManager.beginTransaction()
             .disallowAddToBackStack()
-            .replace(R.id.frame, ListFragmentAPI().newInstance(), Constants.TAG)
+            .replace(R.id.frame, ListFragmentAPI().newInstance(weather), Constants.TAG)
             .commit()
     }
 
@@ -71,11 +74,20 @@ class MainActivity : AppCompatActivity(), ContractInterface.View {
             .commit()
     }
 
-    override fun initView() {
+    override fun initViewAPI() {
+        showProgress(true)
         presenter.getWeather()
-        showListFragmentAPI()
     }
 
-    override fun updateViewData(weather: Weather) {
+    override fun updateFragmentWeatherAPI(weather: Weather) {
+        showListFragmentAPI(weather)
+    }
+
+    fun showProgress(show: Boolean) {
+        if (show) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
     }
 }
