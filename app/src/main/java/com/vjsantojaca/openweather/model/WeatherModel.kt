@@ -45,8 +45,10 @@ class WeatherModel (_presenter : WeatherPresenter) : ContractInterface.Model {
 
     override fun obtainWeatherCSV() : WeatherCSV? {
         var fileReader : BufferedReader? = null
-        val formatter = SimpleDateFormat("yyyy-MM-d HH:mm:ss", Locale.ENGLISH)
-        val informationWeather : MutableList<InfoWeatherCSV> = mutableListOf()
+        val formatterAll = SimpleDateFormat("yyyy-MM-d HH:mm:ss", Locale.ENGLISH)
+        val formatterDay = SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH)
+        val informationWeatherMap : MutableMap<Date, MutableList<InfoWeatherCSV>> = mutableMapOf()
+
         try {
             var line: String?
             fileReader = BufferedReader(InputStreamReader(App.instance.getAssets().open(("openWeather.csv"))))
@@ -55,15 +57,22 @@ class WeatherModel (_presenter : WeatherPresenter) : ContractInterface.Model {
                 val tokens = line.split(";")
                 if (tokens.size > 0) {
                     val infoWeatherCSV = InfoWeatherCSV(
-                        formatter.parse(tokens[0]),
+                        formatterAll.parse(tokens[0]),
                         tokens[1].toFloat()
                     )
                     Log.d(Constants.TAG, "[obtainWeatherCSV] informationWeather -> ${infoWeatherCSV}")
-                    informationWeather.add(infoWeatherCSV)
+                    val list = informationWeatherMap[formatterDay.parse(tokens[0])]
+                    if (list == null) {
+                        val infoWeatherCSVList : MutableList<InfoWeatherCSV> = mutableListOf()
+                        infoWeatherCSVList.add(infoWeatherCSV)
+                        informationWeatherMap.put(formatterDay.parse(tokens[0]), infoWeatherCSVList)
+                    } else {
+                        list.add(infoWeatherCSV)
+                    }
                 }
                 line = fileReader.readLine()
             }
-            return WeatherCSV(informationWeather)
+            return WeatherCSV(informationWeatherMap)
 
         } catch (e: Exception) {
             Log.d(Constants.TAG, "[obtainWeatherCSV] Exception -> ${e.printStackTrace()}")
