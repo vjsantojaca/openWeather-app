@@ -5,17 +5,30 @@ import android.os.Bundle
 
 import com.vjsantojaca.openweather.R
 import com.vjsantojaca.openweather.contract.ContractInterface
-import com.vjsantojaca.openweather.presenter.WeatherPresenter
+import com.vjsantojaca.openweather.di.components.DaggerActivityComponent
+import com.vjsantojaca.openweather.di.modules.ActivityModule
+
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ContractInterface.View {
 
-    private var presenter: WeatherPresenter? = null
+    @Inject
+    lateinit var presenter: ContractInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        injectDependency()
 
-        presenter = WeatherPresenter(this)
+        presenter.attach(this)
+    }
+
+    private fun injectDependency() {
+        val activityComponent = DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this))
+            .build()
+
+        activityComponent.inject(this)
     }
 
     override fun initView() {

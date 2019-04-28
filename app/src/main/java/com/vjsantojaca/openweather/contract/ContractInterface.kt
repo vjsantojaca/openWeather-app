@@ -11,7 +11,9 @@ interface ContractInterface {
     }
 
     interface Presenter {
+        fun attach(view : View)
         fun getWeather()
+        fun getInfoCSV()
         fun responseWeather(weather: Weather)
     }
 
