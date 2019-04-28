@@ -14,6 +14,16 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        instance = this
+
         component.inject(this)
+    }
+
+    fun getApplicationComponent(): ApplicationComponent {
+        return component
+    }
+
+    companion object {
+        lateinit var instance: App private set
     }
 }

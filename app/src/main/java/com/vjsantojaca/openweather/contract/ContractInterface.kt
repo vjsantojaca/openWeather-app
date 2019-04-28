@@ -1,6 +1,7 @@
 package com.vjsantojaca.openweather.contract
 
 import com.vjsantojaca.openweather.model.pojo.Weather
+import com.vjsantojaca.openweather.model.pojo.WeatherCSV
 
 interface ContractInterface {
 
@@ -16,7 +17,7 @@ interface ContractInterface {
 
     interface Model {
         fun obtainWeatherAPI()
-        fun obtainWeatherCSV()
+        fun obtainWeatherCSV(): WeatherCSV?
     }
 
 }
